@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FindMyFilm</title>
+    
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>FindMyFilm</h1>
+    <p class="tagline">Find stories that stay with you...</p>
+    <form method="POST">
+        <select name="user_selection"> 
+            <option value="">Select a Movie</option>
+            {% for i in movie%}
+            <option value="{{i}}">{{i}}</option>
+            {% endfor %}
+        </select>
+        <button name="submit_button" type="submit">Go</button>
+    </form>
+
+   
+
+    {% if selected_movie %}
+    <h2 class="selected_movie">
+        Because you liked <span>{{ selected_movie }}</span>
+    </h2>
+    {% endif %}
+
+    <div class="recommendation">
+        {% if recommendation %}
+            {% for id, item in recommendation.items()%}
+                <div class="movie_card">
+                <strong>{{item[0]}}</strong>
+                <img src="{{item[1]}}">
+                </div>  
+            {% endfor %}
+
+        {% endif %}
+    </div>
+    
+
+</body>
+</html>

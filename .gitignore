@@ -1,0 +1,4 @@
+*.pkl
+__pychache__/
+venv/
+.env
