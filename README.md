@@ -1,7 +1,19 @@
-FindMyFilm is a movie recommendation system i have build as a part of learning web development.
-it is build using Flask and ML.	
+\# FindMyFilm
 
-## Features
+
+
+This is a movie recommendation system.
+it is built using 
+
+&nbsp;- Flask 
+
+&nbsp;- Machine Learning
+
+&nbsp;- TMDB API
+
+
+
+\## Features
 
 \- Select a movie
 
@@ -11,9 +23,9 @@ it is build using Flask and ML.
 
 \- Clean cinematic UI
 
-##Author
+
+
+\## Author
 
 Madhav (@madhavsanthosh26)
-
-
 
