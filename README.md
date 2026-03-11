@@ -1,4 +1,4 @@
-\# FindMyFilm
+# FindMyFilm
 
 
 
@@ -13,7 +13,7 @@ it is built using
 
 
 
-\## Features
+## Features
 
 \- Select a movie
 
@@ -25,7 +25,7 @@ it is built using
 
 
 
-\## Author
+## Author
 
 Madhav (@madhavsanthosh26)
 
