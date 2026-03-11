@@ -2,12 +2,34 @@ from flask import Flask, render_template,request
 import pickle as pkl
 import pandas as pd
 import requests
+import os
 
 app = Flask(__name__)
-movie_list = pkl.load(open("movie_dict.pkl","rb"))
+# Ensure models folder exists
+os.makedirs("models", exist_ok=True)
+
+# Movie dict
+MOVIE_DICT_PATH = "models/movie_dict.pkl"
+MOVIE_DICT_URL = "https://drive.google.com/uc?export=download&id=1OXagqFdqQzrTE7Sm7VA1lxbCZtRCvEwF"
+
+if not os.path.exists(MOVIE_DICT_PATH):
+    r = requests.get(MOVIE_DICT_URL)
+    with open(MOVIE_DICT_PATH, "wb") as f:
+        f.write(r.content)
+
+movie_list = pkl.load(open(MOVIE_DICT_PATH,"rb"))
 movie = pd.DataFrame(movie_list)
 
-similarity = pkl.load(open("similarity.pkl", "rb"))
+# Similarity
+SIMILARITY_PATH = "models/similarity.pkl"
+SIMILARITY_URL = "https://drive.google.com/uc?export=download&id=1zmQ2YGJnj4ipoao5UMvSLh3aulnLt2qq"
+
+if not os.path.exists(SIMILARITY_PATH):
+    r = requests.get(SIMILARITY_URL)
+    with open(SIMILARITY_PATH, "wb") as f:
+        f.write(r.content)
+
+similarity = pkl.load(open(SIMILARITY_PATH,"rb"))
 
 def fetch_poster(movie_id):
     response = requests.get(
@@ -60,8 +82,8 @@ def home():
 
     return render_template("index.html", movie=movie_names_suggestion, recommendation=None, selected_movie=None)
 
-if __name__ == "__main__":
-    app.run(debug=True)
-
 '''if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=10000)'''  
+    app.run(debug=True)'''
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=10000) 
