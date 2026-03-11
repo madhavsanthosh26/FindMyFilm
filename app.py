@@ -23,7 +23,12 @@ def fetch_poster(movie_id):
 
 
 def recommend_movie(user_input):
-    movie_index = movie[movie['title'] == user_input].index[0]
+    #movie_index = movie[movie['title'] == user_input].index[0]
+    filtered = movie[movie['title'] == user_input]
+    if filtered.empty:
+        return {}
+
+    movie_index = filtered.index[0]
     distance = similarity[movie_index]
 
     recommendation_list = sorted(list(enumerate(distance)), key=lambda x:x[1], reverse=True)[1:6]
@@ -47,22 +52,16 @@ def home():
 
     if request.method == 'POST':
         print("FORM DATA:", request.form)
-
-        selected_movie = request.form['user_selection']
-        print("SELECTED:", selected_movie)
-
+        selected_movie = request.form.get('user_selection')
+        if not selected_movie:
+            return render_template("index.html", movie=movie_names_suggestion, recommendation=None, selected_movie=None)
         recommendation = recommend_movie(selected_movie)
+        return render_template("index.html", movie=movie_names_suggestion, recommendation=recommendation, selected_movie=selected_movie)
 
-        return render_template(
-            "index.html",
-            movie=movie_names_suggestion,
-            recommendation=recommendation,
-            selected_movie=selected_movie
-        )
+    return render_template("index.html", movie=movie_names_suggestion, recommendation=None, selected_movie=None)
 
-    return render_template(
-        "index.html",
-        movie=movie_names_suggestion,
-        recommendation=None,
-        selected_movie=None
-    )
+if __name__ == "__main__":
+    app.run(debug=True)
+
+'''if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=10000)'''  
